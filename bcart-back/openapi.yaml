@@ -1,0 +1,90 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  version: 1.0.11
+paths:
+  /api/v1/login:
+    post:
+      summary: Authenticate and get token
+      description: Authenticate and get token
+      operationId: loginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /api/v1/profile:
+    get:
+      summary: Get Profile of logged in user
+      description: Get Profile of logged in user
+      operationId: userProfile
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - api_key:
+            - read
+  /api/v1/products:
+    get:
+      summary: Get all products
+      description: Authenticate and get token
+      operationId: products
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - api_key:
+            - read
+  /api/v1/analytics:
+    get:
+      summary: Get all analytics of logged in user
+      description: Get all analytics of logged in user
+      operationId: analytics
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+      security:
+        - api_key:
+            - read
+components:
+  schemas:
+    User:
+        type: object
+        properties:
+          username:
+            type: string
+            example: theUser
+          password:
+            type: string
+            example: '12345'
+  requestBodies:
+    User:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
